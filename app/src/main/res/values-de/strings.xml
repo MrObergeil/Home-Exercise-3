@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notizen</string>
+    <string name="login">Anmelden</string>
+    <string name="username">Benutzername</string>
+    <string name="password">Passwort</string>
+    <string name="title">Titel</string>
+    <string name="text">Text</string>
+    <string name="notes">Notizen</string>
+    <string name="error_msg_internet">Wir können uns im Moment leider nicht zum Netzwerk verbinden\nBitte überprüfen Sie Ihre Verbindung oder versuchen Sie es später erneut</string>
+    <string name="error_msg_pw">Falscher Benutzername oder Passwort</string>
+    <string name="error_msg_other">Das ging leider in die Hose\nBitte versuchen sie es später erneut</string>
+    <string name="error_title_and_text_empty">Die Felder Titel und Text dürfen nicht leer sein</string>
+</resources>
