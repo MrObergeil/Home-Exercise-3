@@ -64,37 +64,7 @@ class NotesList : AppCompatActivity()
 
                 true
             }
-            R.id.sync ->
-            {
-                val sharedPref = getSharedPreferences(packageName, Context.MODE_PRIVATE)
-                val lastSync = sharedPref.getLong("LAST_SYNC", 0)
-                val token = sharedPref.getString("ACCESS_TOKEN", "") ?: ""
 
-                sharedPref.edit().putLong("LAST_SYNC", java.util.Calendar.getInstance().timeInMillis)
-
-                NoteRepository.notesListFromApi(token, lastSync,
-                    success = {
-                        val offlineNotes = NoteRepository.notesList(this).map { x -> x.id }
-                        val onlineNotes = it.notes
-
-                        for (i in onlineNotes)
-                        {
-                            if (i.id in offlineNotes)
-                            {
-                                NoteRepository.updateNote(this, i)
-                            } else {
-                                NoteRepository.addNote(this, i)
-                            }
-                        }
-
-                        noteAdapter.updateList(NoteRepository.notesList(this))
-                    },
-                    error =
-                    {
-                        Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-                    })
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -165,7 +135,13 @@ class NotesList : AppCompatActivity()
                 noteAdapter.updateList(NoteRepository.notesList(this))
             },
             error = {
-                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                val msg :String
+                when (it) {
+                    90 ->msg= getString(R.string.error_msg_internet)
+                    91 ->msg= getString(R.string.error_msg_other)
+                    else->msg= getString(R.string.error_msg_other)
+                }
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
             })
     }
 
